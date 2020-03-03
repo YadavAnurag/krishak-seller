@@ -1,11 +1,11 @@
 
 ------------------user section ----------------
 / -> user dashboard
-/categories -> show all categories
-/categories/:id -> show all subcategories
-/categories/:id/subcategories/:id -> show all products
-/categories/:id/subcategories/:id/products/ -> show single product having id 
-/categories/:id/subcategories/:id/products/:id -> show single product having id 
+/category -> show all categories
+/category/:id -> show all subcategories
+/category/:id/subcategory/:id -> show all products
+/category/:id/subcategory/:id/product/ -> show single product having id 
+/category/:id/subcategory/:id/product/:id -> show single product having id 
 
 /profile -> show profile
 /profile/edit -> edit profile
@@ -26,19 +26,20 @@
   6.pay button 
 
 
-
 ------------------admin section ----------------
 /admin -> admin dashboard
 
 /admin/profile
 /admin/profile/edit 
 
-/admin/categories/ -> show all categories
-/admin/categories/create -> create new category 
-/admin/categories/:id -> show single category info with all subcategories 
-/admin/categories/edit/:id/ -> edit category having id 
-/admin/categories/edit/:id/subcategories/  
-/admin/categories/:id/products/ -> show all products
+/admin/category/ -> show all categories
+/admin/category/create -> create new category 
+/admin/category/:id -> show single category info with all subcategories 
+/admin/category/edit/:id/ -> edit category having id 
+/admin/category/edit/:id/subcategory/  
+/admin/category/:id/product/ -> show all products
+
+
 
 ------------------util section ----------------
 /contact -> contact us 
