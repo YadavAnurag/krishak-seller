@@ -21,6 +21,7 @@ const products = [
       width: 3
     },
     tags: ['first', '1', 'start', 'unary'],
+    count: 0,
     createdAt: 0
   },
   {
@@ -45,6 +46,7 @@ const products = [
       width: 3
     },
     tags: ['second', 'secondry', 'binary'],
+    count: 0,
     createdAt: 0
   },
   {
@@ -69,6 +71,7 @@ const products = [
       width: 3
     },
     tags: ['third', 'tertiary'],
+    count: 0,
     createdAt: 0
   },
   {
@@ -93,6 +96,7 @@ const products = [
       width: 3
     },
     tags: ['third', 'tertiary'],
+    count: 0,
     createdAt: 0
   },
   {
@@ -117,6 +121,7 @@ const products = [
       width: 3
     },
     tags: ['third', 'tertiary'],
+    count: 0,
     createdAt: 0
   }
 ];
