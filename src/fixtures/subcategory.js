@@ -1,4 +1,4 @@
-const subCategories = [
+const subcategories = [
   {
     id: 1,
     categoryId: 1,
