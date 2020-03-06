@@ -260,8 +260,76 @@ const decreaseProductRating = (
 
 // user actions
 // ADD_USER
+const addUser = (
+  {
+    firstName = '',
+    middleName = '',
+    lastName = '',
+    image = '',
+    gender = '',
+    email = '',
+    contactNumber = '',
+  } = {}
+)=>({
+  type: 'ADD_USER',
+  user: {
+    id: '1',
+    firstName,
+    middleName,
+    lastName,
+    image,
+    gender,
+    email,
+    contactNumber,
+    addresses: [],
+    createdAt: 0
+  }
+});
 // EDIT_USER
+const editUser = (
+  userId = '',
+  updates = {}
+)=>({
+  type: 'EDIT_USER',
+  userId,
+  updates
+});
 // REMOVE_USER
+const removeUser = (
+  userId = ''
+)=>({
+  type: 'REMOVE_USER',
+  userId
+});
+// ADD_ADDRESS
+const addAddress = (
+  userId = '',
+  address = {}
+)=>({
+  type: 'ADD_ADDRESS',
+  userId,
+  address
+});
+// EDIT_ADDRESS
+const editAddress = (
+  userId = '',
+  addressId = '',
+  updates = {}
+)=>({
+  type: 'EDIT_ADDRESS',
+  userId,
+  addressId,
+  updates
+});
+// REMOVE_ADDRESS
+const removeAddress = (
+  userId = '',
+  addressId = ''
+)=>({
+  type: 'REMOVE_ADDRESS',
+  userId,
+  addressId
+});
 
 // cart actions
 // ADD_PRODUCT_TO_CART
