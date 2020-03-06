@@ -1,3 +1,6 @@
+import { createStore, combineReducers } from 'redux';
+import categories from '../fixtures/category';
+
 // actions
 
 // category actions
@@ -6,7 +9,7 @@ const addCategory = (
   {
     name = '',
     description = '',
-    images = [],
+    image = {mobile: '', desktop: ''},
   } = {}
 )=>({
   type: 'ADD_CATEGORY',
@@ -14,7 +17,7 @@ const addCategory = (
     id: '1',
     name,
     description,
-    images,
+    image: {...image},
     status: { display: true },
     createdAt: 0
   }
@@ -26,7 +29,7 @@ const addFakeCategory = (
     id = '',
     name = '',
     description = '',
-    images = [],
+    image = {mobile: '', desktop: ''},
   } = {}
 )=>({
   type: 'ADD_CATEGORY',
@@ -34,7 +37,7 @@ const addFakeCategory = (
     id,
     name,
     description,
-    images,
+    image,
     status: { display: true },
     createdAt: 0
   }
@@ -42,20 +45,20 @@ const addFakeCategory = (
 
 // EDIT_CATEGORY
 const editCategory = (
-  id, 
+  categoryId = '', 
   updates = {}
 )=>({
   type: 'EDIT_CATEGORY',
-  id,
+  categoryId,
   updates
 });
 
 // REMOVE_CATEGORY
 const removeCategory = (
-  id = ''
+  categoryId = ''
 )=>({
   type: 'REMOVE_CATEGORY',
-  id
+  categoryId
 });
 
 // subcategory actions
@@ -65,28 +68,28 @@ const addSubcategory = (
     categoryId = '',
     name = '',
     description = '',
-    images = []
+    image = {mobile: '', desktop: ''},
   } = {}
 )=>({
   type: 'ADD_SUBCATEGORY',
   subcategory: {
-    id: 0,
+    id: '1',
     categoryId,
     name,
     description,
-    images,
+    image,
     status: { display: true },
     createdAt: 0
   }
 });
 // ADD_FAKE_SUBCATEGORY //TODO remove this action
-const addSubcategory = (
+const addFakeSubcategory = (
   {
     id = '',
     categoryId = '',
     name = '',
     description = '',
-    images = []
+    image = {mobile: '', desktop: ''},
   } = {}
 )=>({
   type: 'ADD_SUBCATEGORY',
@@ -95,7 +98,7 @@ const addSubcategory = (
     categoryId,
     name,
     description,
-    images,
+    image,
     status: { display: true },
     createdAt: 0
   }
@@ -130,7 +133,7 @@ const addProduct = (
     subcategoryId = '',
     name = '',
     description = '',
-    price = 100,
+    price = 0,
     sale = {price:0, saleEndAt:0},
     images = [],
     shipping = { 
@@ -155,7 +158,7 @@ const addProduct = (
       saleEndAt: sale.saleEndAt
     },
     images,
-    shipping = {
+    shipping: {
       height: shipping.height, weight: shipping.weight,
       length: shipping.length, width: shipping.width
     },
@@ -166,7 +169,7 @@ const addProduct = (
 });
 
 // ADD_FAKE_PRODUCT // TODO remove this action
-const addProduct = (
+const addFakeProduct = (
   categoryId,
   {
     id = '',
@@ -198,7 +201,7 @@ const addProduct = (
       saleEndAt: sale.saleEndAt
     },
     images,
-    shipping = {
+    shipping: {
       height: shipping.height, weight: shipping.weight,
       length: shipping.length, width: shipping.width
     },
@@ -449,6 +452,423 @@ const placeOrder = (
 // EDIT_FAQ
 // REMOVE_FAQ
 
-// contact actions
-// about actions
-// tac actions
+
+// filter actions
+// SET_TEXT_FILTER
+const setTextFilter = (
+  text = ''
+)=>({
+  type: 'SET_TEXT_FILTER',
+  text
+});
+// SET_LOW_PRICE
+const setLowPrice = (
+  lowPrice = 0
+)=>({
+  type: 'SET_LOW_PRICE',
+  lowPrice
+});
+// SET_HIGH_PRICE
+const setHighPrice = (
+  highPrice = 0
+)=>({
+  type: 'SET_HIGH_PRICE',
+  highPrice
+});
+// UNSET_PRICE
+const unsetPrice = ()=>({
+  type: 'UNSET_PRICE'
+});
+// SET_START_DATE
+const setStartDate = (
+  startDate = 0
+)=>({
+  type: 'SET_START_DATE',
+  startDate
+});
+// SET_END_DATE
+const setEndDate = (
+  endDate = 0
+)=>({
+  type: 'SET_END_DATE',
+  endDate
+});
+// SORT_BY_DATE_ASC
+const sortByDateAsc = ()=>({
+  type: 'SORT_BY_DATE_ASC'
+});
+// SORT_BY_DATE_DESC
+const sortByDateDesc = ()=>({
+  type: 'SORT_BY_DATE_DESC'
+});
+// SORT_BY_PRICE_ASC
+const sortByPriceAsc = ()=>({
+  type: 'SORT_BY_PRICE_ASC'
+});
+// SORT_BY_PRICE_DESC
+const sortByPriceDesc = ()=>({
+  type: 'SORT_BY_PRICE_DESC'
+});
+// ADD_RATING_COUNT
+const addRatingCount = (
+  rating = 0
+)=>({
+  type: 'SORT_BY_RATING',
+  rating
+});
+// REMOVE_RATING_COUNT
+const removeRatingCount = (
+  rating = 0
+)=>({
+  type: 'REMOVE_RATING_COUNT',
+  rating
+});
+
+// SET_NAME_TEXT_FILTER
+const setNameTextFilter = (
+  name = ''
+)=>({
+  type: 'SET_NAME_TEXT_FILTER',
+  name
+});
+// SET_EMAIL_TEXT_FILTER
+const setEmailTextFilter = (
+  email = ''
+)=>({
+  type: 'SET_EMAIL_TEXT_FILTER',
+  email
+});
+// SET_GENDER_FILTER
+const setGenderFilter = (
+  gender = ''
+)=>({
+  type: 'SET_GENDER_FILTER',
+  gender
+});
+// SET_CONTACT_NUMBER_TEXT_FILTER
+const setContactTextFilter = (
+  contactNumber = ''
+)=>({
+  type: 'SET_CONTACT_NUMBER_TEXT_FILTER',
+  contactNumber
+});
+
+// SET_PIN_CODE_TEXT_FILTER
+const setPinCodeTextFilter = (
+  pinCode = ''
+)=>({
+  type: 'SET_PIN_CODE_TEXT_FILTER',
+  pinCode
+});
+// SET_STATE_TEXT_FILTER
+const setStateTextFilter = (
+  state = ''
+)=>({
+  type: 'SET_STATE_TEXT_FILTER',
+  state
+});
+
+// ---------- reducers ----------
+// category reducer
+const categoryReducerDefaultState = [];
+const categoryReducer = (state = categoryReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'ADD_CATEGORY':
+      return [...state, action.category];
+    case 'EDIT_CATEGORY':
+      return state.map(category => {
+        if(category.id === action.categoryId){
+          const image = {...category.image, ...action.updates.image};
+          return {...category, ...action.updates, image};
+        }else{
+          return category;
+        }
+      });
+    case 'REMOVE_CATEGORY':
+      return state.filter(({ id }) => (id !== action.categoryId));
+    default:
+      return state;
+  }
+};
+// subcategory reducer
+const subcategoryReducerDefaultState = [];
+const subcategoryReducer = (state = subcategoryReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'ADD_SUBCATEGORY':
+      return [...state, action.subcategory];
+    case 'EDIT_SUBCATEGORY':
+      return state.map(subcategory => {
+        if(subcategory.id === action.subcategoryId){
+          const image = {...subcategory.image, ...action.updates.images};
+          return {...subcategory, ...action.updates, image};
+        }else{
+          return subcategory;
+        }
+      });
+    case 'REMOVE_SUBCATEGORY':
+      return state.filter(({ id }) => (id !== action.subcategoryId));
+    default:
+      return state;
+  }
+};
+// TODO
+// productReducer
+const productReducerDefaultState = [];
+const productReducer = (state = productReducerDefaultState, action)=>{
+  switch(action.type){
+    default: 
+      return state;
+  }
+};
+// user reducer
+const userReducerDeafultState = [];
+const userReducer = (state = userReducerDeafultState, action)=>{
+  switch(action.type){
+    case 'ADD_USER':
+      return [...state, action.user];
+    case 'EDIT_USER':
+      return state.map(user => {
+        if(user.id === action.userId){
+          return {...user, ...action.updates};
+        }else{
+          return user;
+        }
+      });
+    case 'REMOVE_USER':
+      return state.filter(({ id }) => id !== action.userId);
+    case 'ADD_ADDRESS':
+      return state.map(user=> {
+        if(user.id === action.userId){
+          const addresses = user.addresses.concat(action.address);
+          return {...user, addresses};
+        }else{
+          return user;
+        }
+      });
+    case 'EDIT_ADDRESS':
+      return state.map(user => {
+        if(user.id === action.userId){
+          const addresses = user.addresses.map(address => {
+            if(address.id === action.addressId){
+              return {...address, ...action.updates};
+            }else{
+              return address;
+            }
+          });
+          return {...user, addresses};
+        }else{
+          return user;
+        }
+      });
+    case 'REMOVE_ADDRESS':
+      return state.map(user => {
+        if(user.id === action.userId){
+          const addresses = user.addresses.filter(({id}) => id !== action.addressId);
+          return {...user, addresses};
+        }else{
+          return user;
+        }
+      });
+    default:
+      return state;
+  }
+};
+// order reducer
+// seller reducer
+
+
+//---------- filters ----------
+
+// categoryFilterReducer
+const categoryFilterReducerDefaultState = {
+  text: '',
+  startDate: 0,
+  endDate: 0,
+  sortByDate: 'dateDesc'
+};
+const categoryFilterReducer = (state = categoryFilterReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'SET_TEXT_FILTER':
+      return {...state, text: action.text};
+    case 'SET_START_DATE':
+      return {...state, startDate: action.startDate};
+    case 'SET_END_DATE':
+      return {...state, endDate: action.endDate};
+    case 'SORT_BY_DATE_DESC':
+      return {...state, sortByDate: 'dateDesc'};
+    case 'SORT_BY_DATE_ASC':
+      return {...state, sortByDate: 'dateAsc'};
+    default:
+      return state;
+  }
+};
+// subcategoryFilterReducer
+const subcategoryFilterReducerDefaultState = {
+  text: '',
+  startDate: 0,
+  endDate: 0,
+  sortByDate: 'dateDesc'
+};
+const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'SET_TEXT_FILTER':
+      return {...state, text: action.text};
+    case 'SET_START_DATE':
+      return {...state, startDate: action.startDate};
+    case 'SET_END_DATE':
+      return {...state, endDate: action.endDate};
+    case 'SORT_BY_DATE_DESC':
+      return {...state, sortByDate: 'dateDesc'};
+    case 'SORT_BY_DATE_ASC':
+      return {...state, sortByDate: 'dateAsc'};
+    default:
+      return state;
+  } 
+};
+// productFilterReducer
+const productFilterReducerDefaultState = {
+  text: '',
+  startDate: 0,
+  endDate: 0,
+  sortByDate: 'dateDesc',
+  sortByPrice: 'priceAsc',
+  lowPrice: 0,
+  highPrice: 0,
+  ratings: []
+};
+const productFilterReducer = (state = productFilterReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'SET_TEXT_FILTER':
+      return {...state, text: action.text};
+    case 'SET_START_DATE':
+      return {...state, startDate: action.startDate};
+    case 'SET_END_DATE':
+      return {...state, endDate: action.endDate};
+    case 'SORT_BY_DATE_DESC':
+      return {...state, sortByDate: 'dateDesc'};
+    case 'SORT_BY_DATE_ASC':
+      return {...state, sortByDate: 'dateAsc'};
+    case 'SORT_BY_PRICE_DESC':
+      return {...state, sortByPrice: 'priceDesc'};
+    case 'SORT_BY_PRICE_ASC':
+      return {...state, sortByPrice: 'priceAsc'};
+    case 'ADD_RATING_COUNT':
+      const afterAddRatings = state.ratings.concat(action.rating);
+      return {...state, ratings: afterAddRatings};
+    case 'REMOVE_RATING_COUNT':
+      const afterRemoveRatings = state.ratings.filter(rating => rating !== action.rating);
+      return {...state, ratings: afterRemoveRatings};
+    default:
+      return state;
+  }
+};
+
+// userFilterReducer
+const userFilterReducerDefaultState = {
+  name: '',
+  email: '',
+  gender: '',
+  contactNumber: '',
+  pinCode: '',
+  state: '',
+  startDate: 0,
+  endDate: 0,
+  sortByDate: 'dateDesc',
+};
+const userFilterReducer = (state = userFilterReducerDefaultState, action)=>{
+  switch(action.type){
+    case 'SET_NAME_TEXT_FILTER':
+      return {...state, name: action.name};
+    case 'SET_GENDER_FILTER':
+      return {...state, gender: action.gender};
+    case 'SET_EMAIL_TEXT_FILTER':
+      return {...state, gender: action.email};
+    case 'SET_CONTACT_NUMBER_TEXT_FILTER':
+      return {...state, gender: action.contactNumber};
+    case 'SET_PIN_CODE_TEXT_FILTER':
+      return {...state, pinCode: action.pinCode};
+    case 'SET_STATE_TEXT_FILTER':
+      return {...state, state: action.state};
+    case 'SET_START_DATE':
+      return {...state, startDate: action.startDate};
+    case 'SET_END_DATE':
+      return {...state, endDate: action.endDate};
+    case 'SORT_BY_DATE_DESC':
+      return {...state, sortByDate: 'dateDesc'};
+    case 'SORT_BY_DATE_ASC':
+      return {...state, sortByDate: 'dateAsc'};
+    default:
+      return state;
+  }
+};
+
+// TODO
+// sellerFilterReducer
+
+
+// store creation 
+const store = createStore(
+  combineReducers({
+    categories: categoryReducer,
+    categoryFilters: categoryFilterReducer,
+
+    subcategories: subcategoryReducer,
+    subcategoryFilters: subcategoryFilterReducer,
+
+    products: productReducer,
+    productFilters: productFilterReducer,
+
+    users: userReducer,
+    userFilters: userFilterReducer
+  })
+);
+
+
+const state = store.getState();
+console.log('intialState',state);
+const unsubscribe = store.subscribe(()=>{
+  const state = store.getState();
+  console.log(state.subcategory);
+  console.log(state);
+});
+
+// dispatching
+const firstCat = {
+  name: 'first category', 
+  description: 'first cat desc', 
+  image: {
+    desktop: 'https://picsum',
+    mobile: 'https'
+  }
+};
+const firstCategory = store.dispatch(addCategory(firstCat));
+const updates = {
+  name: 'first update category', 
+  description: 'first cat desc', 
+  image: {
+    desktop: '',
+    mobile: ''
+  },
+  status: { display: false }
+};
+store.dispatch(editCategory(firstCategory.category.id, updates));
+store.dispatch(removeCategory(firstCategory.category.id));
+
+categories.forEach(category => {
+  store.dispatch(addFakeCategory(category));
+});
+
+const firstSubcat = {
+  id: '1',
+  categoryId: '1',
+  name: 'First sub category',
+  description: 'first sub category description',
+  image: {
+    mobile: 'https://picsum.photos/300', 
+    desktop: 'https://picsum.photos/500'
+  },
+  status: { display: true },
+  createdAt: 0
+};
+const firstSubcategory = store.dispatch(addSubcategory(firstSubcat));
+

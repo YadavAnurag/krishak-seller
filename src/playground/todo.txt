@@ -1,0 +1,22 @@
+--------------actions----------
+// seller actions
+// ADD_SELLER
+// EDIT_SELLER
+// REMOVE_SELLER
+
+
+// faq actions
+// ADD_FAQ_SECTION
+// EDIT_FAQ_SECTION
+// REMOVE_FAQ_SECTION
+// ADD_FAQ
+// EDIT_FAQ
+// REMOVE_FAQ
+
+
+------------ reducer -------------
+// TODO product reducer
+// order reducer
+// seller reducer
+
+// sellerFilterReducer
