@@ -45,7 +45,7 @@ const addFakeCategory = (
 
 // EDIT_CATEGORY
 const editCategory = (
-  categoryId = '', 
+  categoryId = '',
   updates = {}
 )=>({
   type: 'EDIT_CATEGORY',
@@ -136,8 +136,8 @@ const addProduct = (
     price = 0,
     sale = {price:0, saleEndAt:0},
     images = [],
-    shipping = { 
-      height: 0, weight: 0, 
+    shipping = {
+      height: 0, weight: 0,
       length: 0, width: 0
     },
     tags = [],
@@ -179,8 +179,8 @@ const addFakeProduct = (
     price = 100,
     sale = {price:0, saleEndAt:0},
     images = [],
-    shipping = { 
-      height: 0, weight: 0, 
+    shipping = {
+      height: 0, weight: 0,
       length: 0, width: 0
     },
     tags = [],
@@ -616,7 +616,7 @@ const subcategoryReducer = (state = subcategoryReducerDefaultState, action)=>{
 const productReducerDefaultState = [];
 const productReducer = (state = productReducerDefaultState, action)=>{
   switch(action.type){
-    default: 
+    default:
       return state;
   }
 };
@@ -723,7 +723,7 @@ const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, 
       return {...state, sortByDate: 'dateAsc'};
     default:
       return state;
-  } 
+  }
 };
 // productFilterReducer
 const productFilterReducerDefaultState = {
@@ -806,7 +806,7 @@ const userFilterReducer = (state = userFilterReducerDefaultState, action)=>{
 // sellerFilterReducer
 
 
-// store creation 
+// store creation
 const store = createStore(
   combineReducers({
     categories: categoryReducer,
@@ -834,8 +834,8 @@ const unsubscribe = store.subscribe(()=>{
 
 // dispatching
 const firstCat = {
-  name: 'first category', 
-  description: 'first cat desc', 
+  name: 'first category',
+  description: 'first cat desc',
   image: {
     desktop: 'https://picsum',
     mobile: 'https'
@@ -843,8 +843,8 @@ const firstCat = {
 };
 const firstCategory = store.dispatch(addCategory(firstCat));
 const updates = {
-  name: 'first update category', 
-  description: 'first cat desc', 
+  name: 'first update category',
+  description: 'first cat desc',
   image: {
     desktop: '',
     mobile: ''
@@ -864,7 +864,7 @@ const firstSubcat = {
   name: 'First sub category',
   description: 'first sub category description',
   image: {
-    mobile: 'https://picsum.photos/300', 
+    mobile: 'https://picsum.photos/300',
     desktop: 'https://picsum.photos/500'
   },
   status: { display: true },

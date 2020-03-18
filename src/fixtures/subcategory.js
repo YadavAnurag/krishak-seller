@@ -5,7 +5,7 @@ const subcategories = [
     name: 'First sub category',
     description: 'first sub category description',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: { display: true },
@@ -17,7 +17,7 @@ const subcategories = [
     name: 'Second sub category',
     description: 'first sub category description',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: { display: true },
@@ -29,7 +29,7 @@ const subcategories = [
     name: 'third sub category',
     description: 'first sub category description',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: { display: true },
@@ -41,7 +41,19 @@ const subcategories = [
     name: 'fourth sub category',
     description: 'first sub category description',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
+      desktop: 'https://picsum.photos/500'
+    },
+    status: { display: true },
+    createdAt: 0
+  },
+  {
+    id: '4',
+    categoryId: '3',
+    name: 'fifth sub category',
+    description: 'first sub category description',
+    image: {
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: { display: true },
@@ -49,4 +61,4 @@ const subcategories = [
   }
 ];
 
-export default subCategories;
+module.exports = subcategories;

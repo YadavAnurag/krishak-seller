@@ -4,7 +4,7 @@ const categories = [
     name: 'first Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: {
@@ -17,7 +17,7 @@ const categories = [
     name: 'second Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: {
@@ -30,7 +30,33 @@ const categories = [
     name: 'third Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
-      mobile: 'https://picsum.photos/300', 
+      mobile: 'https://picsum.photos/300',
+      desktop: 'https://picsum.photos/500'
+    },
+    status: {
+      display: true
+    },
+    createdAt: 0,
+  },
+  {
+    id: '4',
+    name: 'fourth Category',
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+    image: {
+      mobile: 'https://picsum.photos/300',
+      desktop: 'https://picsum.photos/500'
+    },
+    status: {
+      display: true
+    },
+    createdAt: 0
+  },
+  {
+    id: '5',
+    name: 'fifth Category',
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+    image: {
+      mobile: 'https://picsum.photos/300',
       desktop: 'https://picsum.photos/500'
     },
     status: {
@@ -40,4 +66,4 @@ const categories = [
   }
 ];
 
-export default categories;
+module.exports = categories;
