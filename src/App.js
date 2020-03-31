@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import './style/style.scss';
 
-import app from './playground/app';
+//import app from "./playground/app";
+import AppRouter from "./routers/AppRouter";
+
 
 function App() {
   return (
-    <div className="App">
-      app 
-    </div>
+    <AppRouter />
   );
 }
 

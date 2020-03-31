@@ -15,16 +15,11 @@
 
 
 ------------ reducer -------------
-// TODO product reducer
 // order reducer
 // seller reducer
 
 // sellerFilterReducer
 
 
-
-Database-
-is there should be userid with all category,subcategory and product document?
-is there should be lastModifiedAt in category,subcategory and product documents?
 
 Add status code to api response

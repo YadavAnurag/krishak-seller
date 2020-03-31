@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import categories from '../fixtures/category';
+import subcategories from '../fixtures/subcategory';
 
 // actions
 
@@ -7,35 +8,16 @@ import categories from '../fixtures/category';
 // ADD_CATEGORY
 const addCategory = (
   {
-    name = '',
-    description = '',
-    image = {mobile: '', desktop: ''},
-  } = {}
-)=>({
-  type: 'ADD_CATEGORY',
-  category: {
-    id: '1',
-    name,
-    description,
-    image: {...image},
-    status: { display: true },
-    createdAt: 0
-  }
-});
-
-// add fake category -> // TODO remove this action
-const addFakeCategory = (
-  {
     id = '',
-    name = '',
+    title = '',
     description = '',
-    image = {mobile: '', desktop: ''},
+    image = {mobile: '', desktop: ''}
   } = {}
 )=>({
   type: 'ADD_CATEGORY',
   category: {
     id,
-    name,
+    title,
     description,
     image,
     status: { display: true },
@@ -65,38 +47,18 @@ const removeCategory = (
 // ADD_SUBCATEGORY
 const addSubcategory = (
   {
-    categoryId = '',
-    name = '',
-    description = '',
-    image = {mobile: '', desktop: ''},
-  } = {}
-)=>({
-  type: 'ADD_SUBCATEGORY',
-  subcategory: {
-    id: '1',
-    categoryId,
-    name,
-    description,
-    image,
-    status: { display: true },
-    createdAt: 0
-  }
-});
-// ADD_FAKE_SUBCATEGORY //TODO remove this action
-const addFakeSubcategory = (
-  {
     id = '',
     categoryId = '',
-    name = '',
+    title = '',
     description = '',
-    image = {mobile: '', desktop: ''},
+    image = {mobile: '', desktop: ''}
   } = {}
 )=>({
   type: 'ADD_SUBCATEGORY',
   subcategory: {
     id,
     categoryId,
-    name,
+    title,
     description,
     image,
     status: { display: true },
@@ -104,35 +66,36 @@ const addFakeSubcategory = (
   }
 });
 
+
 // EDIT_SUBCATEGORY
 const editSubcategory = (
-  categoryId,
   subcategoryId,
   updates = {}
 ) => ({
   type: 'EDIT_SUBCATEGORY',
-  categoryId,
   subcategoryId,
   updates
 });
 // REMOVE_SUBCATEGORY
 const removeSubcategory = (
-  categoryId = '',
   subcategoryId = ''
 )=>({
   type: 'REMOVE_SUBCATEGORY',
-  categoryId,
   subcategoryId
 });
 
 // product actions
 // ADD_PRODUCT
 const addProduct = (
-  categoryId,
   {
+    id = '', // remove
     subcategoryId = '',
-    name = '',
+    sellerId = '',
+    title = '',
     description = '',
+    rating = {
+      avgRating: 0, numberOfRatings: 0
+    }, // remove
     price = 0,
     sale = {price:0, saleEndAt:0},
     images = [],
@@ -142,123 +105,77 @@ const addProduct = (
     },
     tags = [],
     count = 0,
+    createdAt = 0, // remove
   } = {}
 )=>({
   type: 'ADD_PRODUCT',
-  categoryId,
   product: {
-    id: '',
+    id: '', // remove
     subcategoryId,
-    name,
+    sellerId,
+    title,
     description,
-    rating: 0,
+    status: { display: true },
+    rating, // assign to default
     price,
-    sale: {
-      price: sale.price,
-      saleEndAt: sale.saleEndAt
-    },
+    sale,
     images,
-    shipping: {
-      height: shipping.height, weight: shipping.weight,
-      length: shipping.length, width: shipping.width
-    },
+    shipping,
     tags,
     count,
-    createdAt: 0
-  }
-});
-
-// ADD_FAKE_PRODUCT // TODO remove this action
-const addFakeProduct = (
-  categoryId,
-  {
-    id = '',
-    subcategoryId = '',
-    name = '',
-    description = '',
-    price = 100,
-    sale = {price:0, saleEndAt:0},
-    images = [],
-    shipping = {
-      height: 0, weight: 0,
-      length: 0, width: 0
-    },
-    tags = [],
-    count = 0
-  } = {}
-)=>({
-  type: 'ADD_PRODUCT',
-  categoryId,
-  product: {
-    id,
-    subcategoryId,
-    name,
-    description,
-    rating: 0,
-    price,
-    sale: {
-      price: sale.price,
-      saleEndAt: sale.saleEndAt
-    },
-    images,
-    shipping: {
-      height: shipping.height, weight: shipping.weight,
-      length: shipping.length, width: shipping.width
-    },
-    tags,
-    count,
-    createdAt: 0
+    createdAt, // assign to 0
+    lastModifiedAt: 0
   }
 });
 
 // EDIT_PRODUCT
 const editProduct = (
-  categoryId,
-  subcategoryId,
   productId,
   updates = {}
 )=>({
   type: 'EDIT_PRODUCT',
-  categoryId,
-  subcategoryId,
   productId,
   updates
 });
 
 // REMOVE_PRODUCT
 const removeProduct = (
-  categoryId,
-  subcategoryId,
   productId
 )=>({
   type: 'REMOVE_PRODUCT',
-  categoryId,
-  subcategoryId,
   productId
 });
 
-// INCREASE_PRODUCT_RATING
-const increaseProductRating = (
-  categoryId = '',
-  subcategoryId = '',
-  productId = ''
+// RATE_PRODUCT
+const rateProduct = (
+  productId = '',
+  rating = 0
 )=>({
-  type: 'INCREASE_PRODUCT_RATING',
-  categoryId,
-  subcategoryId,
-  productId
+  type: 'RATE_PRODUCT',
+  productId,
+  rating
 });
 
-// DECREASE_PRODUCT_RATING
-const decreaseProductRating = (
-  categoryId = '',
-  subcategoryId = '',
-  productId = ''
-)=>({
-  type: 'DECREASE_PRODUCT_RATING',
-  categoryId,
-  subcategoryId,
-  productId
+// INCREASE_PRODUCT_COUNT
+// incase any user return product or seller added product
+const increaseProductCount = (
+  productId = 0,
+  count = 0
+) => ({
+  type: 'INCREASE_PRODUCT_COUNT',
+  productId,
+  count
+});
+
+// INCREASE_PRODUCT_COUNT
+// incase any user buy product or seller remove product
+const decreaseProductCount = (
+  productId = 0,
+  count = 0
+) => ({
+  type: 'DECREASE_PRODUCT_COUNT',
+  productId,
+  count
 });
 
 // user actions
@@ -461,24 +378,14 @@ const setTextFilter = (
   type: 'SET_TEXT_FILTER',
   text
 });
-// SET_LOW_PRICE
-const setLowPrice = (
-  lowPrice = 0
-)=>({
-  type: 'SET_LOW_PRICE',
-  lowPrice
+// SET_CATEGORY_ID
+const setCategoryId = (
+  categoryId = 0
+) => ({
+  type: 'SET_CATEGORY_ID',
+  categoryId
 });
-// SET_HIGH_PRICE
-const setHighPrice = (
-  highPrice = 0
-)=>({
-  type: 'SET_HIGH_PRICE',
-  highPrice
-});
-// UNSET_PRICE
-const unsetPrice = ()=>({
-  type: 'UNSET_PRICE'
-});
+
 // SET_START_DATE
 const setStartDate = (
   startDate = 0
@@ -500,6 +407,38 @@ const sortByDateAsc = ()=>({
 // SORT_BY_DATE_DESC
 const sortByDateDesc = ()=>({
   type: 'SORT_BY_DATE_DESC'
+});
+// SET_SUBCATEGORY_ID
+const setSubcategoryId = (
+  subcategoryId = 0
+) => ({
+  type: 'SET_SUBCATEGORY_ID',
+  subcategoryId
+});
+// SET_SELLER_ID
+const setSellerId = (
+  sellerId = 0
+) => ({
+  type: 'SET_SELLER_ID',
+  sellerId
+});
+// SET_LOW_PRICE
+const setLowPrice = (
+  lowPrice = 0
+)=>({
+  type: 'SET_LOW_PRICE',
+  lowPrice
+});
+// SET_HIGH_PRICE
+const setHighPrice = (
+  highPrice = 0
+)=>({
+  type: 'SET_HIGH_PRICE',
+  highPrice
+});
+// UNSET_PRICE
+const unsetPrice = ()=>({
+  type: 'UNSET_PRICE'
 });
 // SORT_BY_PRICE_ASC
 const sortByPriceAsc = ()=>({
@@ -578,8 +517,20 @@ const categoryReducer = (state = categoryReducerDefaultState, action)=>{
     case 'EDIT_CATEGORY':
       return state.map(category => {
         if(category.id === action.categoryId){
-          const image = {...category.image, ...action.updates.image};
-          return {...category, ...action.updates, image};
+
+          const {
+            title = category.title,
+            description = category.description,
+          } = action.updates;
+          const updates = {
+            title,
+            description,
+            image: {...category.image, ...action.updates.image},
+            status: {...category.status, ...action.updates.status},
+            lastModifiedAt: 0
+          };
+
+          return {...category, ...updates};
         }else{
           return category;
         }
@@ -595,12 +546,27 @@ const subcategoryReducerDefaultState = [];
 const subcategoryReducer = (state = subcategoryReducerDefaultState, action)=>{
   switch(action.type){
     case 'ADD_SUBCATEGORY':
+      //console.log('goona add', [...state, action.subcategory] );
       return [...state, action.subcategory];
     case 'EDIT_SUBCATEGORY':
       return state.map(subcategory => {
         if(subcategory.id === action.subcategoryId){
-          const image = {...subcategory.image, ...action.updates.images};
-          return {...subcategory, ...action.updates, image};
+
+          const {
+            categoryId = subcategory.categoryId,
+            title = subcategory.title,
+            description = subcategory.description,
+          } = action.updates;
+          const updates = {
+            categoryId,
+            title,
+            description,
+            image: {...subcategory.image, ...action.updates.image},
+            status: {...subcategory.status, ...action.updates.status},
+            lastModifiedAt: 0
+          };
+
+          return {...subcategory, ...updates};
         }else{
           return subcategory;
         }
@@ -611,18 +577,86 @@ const subcategoryReducer = (state = subcategoryReducerDefaultState, action)=>{
       return state;
   }
 };
-// TODO
 // productReducer
 const productReducerDefaultState = [];
 const productReducer = (state = productReducerDefaultState, action)=>{
   switch(action.type){
+    case 'ADD_PRODUCT':
+      return [...state, action.product];
+    case 'EDIT_PRODUCT':
+      return state.map(product => {
+        if(product.id === action.productId){
+          const {
+            subcategoryId = product.subcategoryId,
+            title = product.title,
+            description = product.description,
+            price = product.price,
+            count = product.count
+          } = action.updates;
+          const updates = {
+            subcategoryId,
+            title,
+            description,
+            status: {...product.status, ...action.updates.status},
+            rating: {...product.rating, ...action.updates.rating},
+            price,
+            sale: {...product.sale, ...action.updates.sale},
+            images: [...product.images, ...action.updates.images],
+            shipping : {...product.shipping, ...action.updates.shipping},
+            tags: [...product.tags, ...action.updates.tags],
+            count,
+            lastModifiedAt: 0
+          };
+
+          return {...product, ...updates};
+        }else{
+          return product;
+        }
+      });
+    case 'REMOVE_PRODUCT':
+      return state.filter(({ id }) => (id !== action.productId));
+    case 'RATE_PRODUCT':
+      return state.map(product => {
+        if(product.id === action.productId){
+          const {
+            avgRating, numberOfRatings
+          } = product.rating;
+          const newAvgRating = Math.floor((numberOfRatings * avgRating + action.rating)/(numberOfRatings + 1));
+          const rating = {
+            avgRating: newAvgRating,
+            numberOfRatings: numberOfRatings + 1
+          };
+
+          return {...product, rating};
+        }else{
+          return product;
+        }
+      });
+    case 'INCREASE_PRODUCT_COUNT':
+      return state.map(product => {
+        if(product.id === action.productId){
+          const count = product.count + action.count;
+          return {...product, count};
+        }else{
+          return product;
+        }
+      });
+    case 'DECREASE_PRODUCT_COUNT':
+      return state.map(product => {
+        if(product.id === action.productId){
+          const count = product.count - action.count;
+          return {...product, count};
+        }else{
+          return product;
+        }
+      });
     default:
       return state;
   }
 };
 // user reducer
-const userReducerDeafultState = [];
-const userReducer = (state = userReducerDeafultState, action)=>{
+const userReducerDefaultState = [];
+const userReducer = (state = userReducerDefaultState, action)=>{
   switch(action.type){
     case 'ADD_USER':
       return [...state, action.user];
@@ -702,8 +736,35 @@ const categoryFilterReducer = (state = categoryFilterReducerDefaultState, action
       return state;
   }
 };
+
+const getVisibleCategories = (categories, categoryFilters) => {
+  const {
+    text = '',
+    startDate = 0,
+    endDate = 0,
+    sortByDate = 'dateDesc'
+  } = categoryFilters;
+
+  return categories.filter(category => {
+    const startDateMatch = typeof startDate !== 'number' || category.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || category.createdAt <= endDate;
+    const textMatch = category.title.toLowerCase().includes(text.toLowerCase());
+
+    // console.log(startDateMatch, endDateMatch, textMatch);
+    return startDateMatch && endDateMatch && textMatch;
+  }).sort((a,b) => {
+    if(sortByDate === 'dateDesc'){
+      return a.createdAt < b.createdAt ? 1 : -1;
+    }
+    if(sortByDate === 'dateAsc'){
+      return a.createdAt > b.createdAt ? 1 : -1;
+    }
+  });
+};
+
 // subcategoryFilterReducer
 const subcategoryFilterReducerDefaultState = {
+  categoryId: '',
   text: '',
   startDate: 0,
   endDate: 0,
@@ -711,6 +772,8 @@ const subcategoryFilterReducerDefaultState = {
 };
 const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, action)=>{
   switch(action.type){
+    case 'SET_CATEGORY_ID':
+      return {...state, categoryId: action.categoryId};
     case 'SET_TEXT_FILTER':
       return {...state, text: action.text};
     case 'SET_START_DATE':
@@ -725,33 +788,68 @@ const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, 
       return state;
   }
 };
+const getVisibleSubcategories = (subcategories, subcategoryFilters) => {
+  const {
+    categoryId = '',
+    text = '',
+    startDate = 0,
+    endDate = 0,
+    sortByDate = 'dateDesc'
+  } = subcategoryFilters;
+
+  return subcategories.filter(subcategory => {
+    // console.log('this one',subcategory);
+    const categoryIdMatch = subcategory.categoryId.toLowerCase().includes(categoryId.toLowerCase());
+    const startDateMatch = typeof startDate !== 'number' || subcategory.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || subcategory.createdAt <= endDate;
+    const textMatch = subcategory.title.toLowerCase().includes(text.toLowerCase());
+
+    console.log(categoryIdMatch, startDateMatch, endDateMatch, textMatch);
+    return categoryIdMatch && startDateMatch && endDateMatch && textMatch;
+  }).sort((a,b) => {
+    if(sortByDate === 'dateDesc'){
+      return a.createdAt < b.createdAt ? 1 : -1;
+    }
+    if(sortByDate === 'dateAsc'){
+      return a.createdAt > b.createdAt ? 1 : -1;
+    }
+  });
+};
 // productFilterReducer
 const productFilterReducerDefaultState = {
   text: '',
+  subcategoryId: '',
+  sellerId: '',
   startDate: 0,
   endDate: 0,
-  sortByDate: 'dateDesc',
   sortByPrice: 'priceAsc',
-  lowPrice: 0,
-  highPrice: 0,
-  ratings: []
+  lowPrice: -Infinity,
+  highPrice: Infinity,
+  ratings: [],
+  tags: []
 };
 const productFilterReducer = (state = productFilterReducerDefaultState, action)=>{
   switch(action.type){
     case 'SET_TEXT_FILTER':
       return {...state, text: action.text};
+    case 'SET_SUBCATEGORY_ID':
+      return {...state, subcategoryId: action.subcategoryId};
+    case 'SET_SELLER_ID':
+      return {...state, sellerId: action.sellerId};
     case 'SET_START_DATE':
       return {...state, startDate: action.startDate};
     case 'SET_END_DATE':
       return {...state, endDate: action.endDate};
-    case 'SORT_BY_DATE_DESC':
-      return {...state, sortByDate: 'dateDesc'};
-    case 'SORT_BY_DATE_ASC':
-      return {...state, sortByDate: 'dateAsc'};
     case 'SORT_BY_PRICE_DESC':
       return {...state, sortByPrice: 'priceDesc'};
     case 'SORT_BY_PRICE_ASC':
       return {...state, sortByPrice: 'priceAsc'};
+    case 'SET_LOW_PRICE':
+      return {...state, lowPrice: action.lowPrice};
+    case 'SET_HIGH_PRICE':
+      return {...state, highPrice: action.highPrice};
+    case 'UNSET_PRICE':
+      return {...state, lowPrice: -Infinity, highPrice: Infinity};
     case 'ADD_RATING_COUNT':
       const afterAddRatings = state.ratings.concat(action.rating);
       return {...state, ratings: afterAddRatings};
@@ -761,6 +859,53 @@ const productFilterReducer = (state = productFilterReducerDefaultState, action)=
     default:
       return state;
   }
+};
+
+const getVisibleProducts = (products, productFilters) => {
+  const {
+    text = '',
+    subcategoryId = '',
+    sellerId = '',
+    startDate = 0,
+    endDate = 0,
+    lowPrice = -Infinity,
+    highPrice = Infinity,
+    ratings = [],
+    tags = [],
+    sortByPrice = 'priceAsc',
+  } = productFilters;
+
+  return products.filter(product => {
+    const textMatch = product.title.toLowerCase().includes(text.toLowerCase())
+    const subcategoryIdMatch = product.subcategoryId.toLowerCase().includes(subcategoryId.toLowerCase());
+    const sellerIdMatch = product.sellerId.toLowerCase().includes(sellerId.toLowerCase());
+    const startDateMatch = typeof startDate !== 'number' || product.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || product.createdAt <= endDate;
+    const lowPriceMatch = typeof lowPrice !== 'number' || product.lowPrice >= lowPrice;
+    const highPriceMatch = typeof highPrice !== 'number' || product.highPrice <= highPrice;
+    const ratingsMatch = true;
+    const tagsMatch = true;
+
+    if(ratings.length !== 0){
+      ratingsMatch = ratings.some(rating => rating === product.rating.avgRating);
+    }
+    if(tags.length !== 0){
+      tagsMatch = tags.some(tag => product.tags.includes(tag));
+    }
+
+    return textMatch && subcategoryIdMatch &&
+      sellerIdMatch && startDateMatch &&
+      endDateMatch && lowPriceMatch &&
+      highPriceMatch && ratingsMatch &&
+      tagsMatch;
+  }).sort((a,b) => {
+    if(sortByPrice === 'priceDesc'){
+      return a.price < b.price ? 1 : -1;
+    }
+    if(sortByPrice === 'priceAsc'){
+      return a.price > b.price ? 1 : -1;
+    }
+  });
 };
 
 // userFilterReducer
@@ -824,51 +969,159 @@ const store = createStore(
 );
 
 
-const state = store.getState();
-console.log('intialState',state);
 const unsubscribe = store.subscribe(()=>{
   const state = store.getState();
-  console.log(state.subcategory);
-  console.log(state);
+  const products = getVisibleProducts(state.products, state.productFilters);
+  console.log(state.products, state.productFilters);
+  //console.log(state);
 });
 
 // dispatching
-const firstCat = {
-  name: 'first category',
-  description: 'first cat desc',
+
+//-----------category---------------
+
+// const firstCat = {
+//   id: '10',
+//   title: 'tenth category',
+//   description: 'tenth cat desc',
+//   image: {
+//     desktop: 'https://picsum',
+//     mobile: ''
+//   }
+// };
+// const secondCat = {
+//   id: '20',
+//   title: 'twenty category',
+//   description: 'twenty cat desc',
+//   image: {
+//     desktop: 'https://desktop.com',
+//     mobile: 'https://mobile.com'
+//   }
+// };
+// const firstCategory = store.dispatch(addCategory(firstCat));
+// const secondCategory = store.dispatch(addCategory(secondCat));
+// const updates = {
+//   title: 'tenth update category',
+//   description: 'tenth cat desc',
+//   image: {
+//     desktop: 'https://mobile.com'
+//   },
+//   status: { display: false }
+// };
+// store.dispatch(editCategory(firstCategory.category.id, updates));
+// store.dispatch(removeCategory(firstCategory.category.id));
+
+
+// categories.map(category => store.dispatch(addCategory(category)));
+// store.dispatch(setTextFilter('t'));
+// store.dispatch(setStartDate(-500));
+// store.dispatch(setEndDate(1000));
+// store.dispatch(sortByDateAsc());
+// store.dispatch(sortByDateDesc());
+
+
+//-----------subcategory---------------
+
+// const firstSubcat = {
+//   id: '10',
+//   categoryId: '1',
+//   title: 'tenth sub category',
+//   description: 'tenth sub category description',
+//   image: {
+//     mobile: 'https://picsum.photos/300',
+//     desktop: 'https://picsum.photos/500'
+//   }
+// };
+// const secondSubcat = {
+//   id: '20',
+//   title: 'twenty subcategory',
+//   description: 'twenty subcat desc',
+//   image: {
+//     desktop: 'https://desktop.com',
+//     mobile: 'https://mobile.com'
+//   }
+// };
+// const firstSubcategory = store.dispatch(addSubcategory(firstSubcat));
+// const secondSubcategory = store.dispatch(addSubcategory(secondSubcat));
+// const updates = {
+//   title: 'tenth update subcategory',
+//   description: 'tenth cat desc',
+//   image: {
+//     desktop: 'https://mob.com'
+//   },
+//   status: { display: false }
+// };
+// store.dispatch(editSubcategory(firstSubcategory.subcategory.id, updates));
+// store.dispatch(removeSubcategory(firstSubcategory.subcategory.id));
+
+// console.log('adding');
+// subcategories.map(subcategory => {
+//   store.dispatch(addSubcategory(subcategory))
+// });
+// store.dispatch(setTextFilter(''));
+// store.dispatch(setStartDate(-100));
+// store.dispatch(setEndDate(50));
+// store.dispatch(sortByDateAsc());
+// store.dispatch(sortByDateDesc());
+
+
+//-----------product---------------
+
+const firstPro = {
+  id: '10',
+  subcategoryId: '1',
+  sellerId: '1',
+  title: 'tenth product',
+  description: 'tenth product description',
+  rating: {
+    avgRating: 2, numberOfRatings: 3
+  },
+  price: 100,
+  sale: {
+    price: 90,
+    saleEndAt: 10
+  },
+  images: [
+    'https://picsum.photos/300',
+    'https://picsum.photos/500'
+  ],
+  shipping: {
+    height: 0, weight: 0,
+    length: 0, width: 0
+  },
+  tags: ['tenth'],
+  count: 10,
+};
+const secondSubcat = {
+  id: '20',
+  title: 'twenty subcategory',
+  description: 'twenty subcat desc',
   image: {
-    desktop: 'https://picsum',
-    mobile: 'https'
+    desktop: 'https://desktop.com',
+    mobile: 'https://mobile.com'
   }
 };
-const firstCategory = store.dispatch(addCategory(firstCat));
-const updates = {
-  name: 'first update category',
-  description: 'first cat desc',
-  image: {
-    desktop: '',
-    mobile: ''
-  },
-  status: { display: false }
-};
-store.dispatch(editCategory(firstCategory.category.id, updates));
-store.dispatch(removeCategory(firstCategory.category.id));
+const firstProduct = store.dispatch(addProduct(firstPro));
+// const secondSubcategory = store.dispatch(addSubcategory(secondSubcat));
+// const updates = {
+//   title: 'tenth update subcategory',
+//   description: 'tenth cat desc',
+//   image: {
+//     desktop: 'https://mob.com'
+//   },
+//   status: { display: false }
+// };
+// store.dispatch(editSubcategory(firstSubcategory.subcategory.id, updates));
+// store.dispatch(removeSubcategory(firstSubcategory.subcategory.id));
 
-categories.forEach(category => {
-  store.dispatch(addFakeCategory(category));
-});
+// console.log('adding');
+// subcategories.map(subcategory => {
+//   store.dispatch(addSubcategory(subcategory))
+// });
+// store.dispatch(setTextFilter(''));
+// store.dispatch(setStartDate(-100));
+// store.dispatch(setEndDate(50));
+// store.dispatch(sortByDateAsc());
+// store.dispatch(sortByDateDesc());
 
-const firstSubcat = {
-  id: '1',
-  categoryId: '1',
-  name: 'First sub category',
-  description: 'first sub category description',
-  image: {
-    mobile: 'https://picsum.photos/300',
-    desktop: 'https://picsum.photos/500'
-  },
-  status: { display: true },
-  createdAt: 0
-};
-const firstSubcategory = store.dispatch(addSubcategory(firstSubcat));
 

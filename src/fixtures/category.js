@@ -1,7 +1,7 @@
 const categories = [
   {
     id: '1',
-    name: 'first Category',
+    title: 'first Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
@@ -10,11 +10,12 @@ const categories = [
     status: {
       display: true
     },
-    createdAt: 0
+    createdAt: 0,
+    lastModifiedAt: 0
   },
   {
     id: '2',
-    name: 'second Category',
+    title: 'second Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
@@ -23,11 +24,12 @@ const categories = [
     status: {
       display: true
     },
-    createdAt: 0
+    createdAt: -100,
+    lastModifiedAt: 0
   },
   {
     id: '3',
-    name: 'third Category',
+    title: 'third Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
@@ -36,11 +38,12 @@ const categories = [
     status: {
       display: true
     },
-    createdAt: 0,
+    createdAt: 100,
+    lastModifiedAt: 0
   },
   {
     id: '4',
-    name: 'fourth Category',
+    title: 'fourth Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
@@ -49,20 +52,22 @@ const categories = [
     status: {
       display: true
     },
-    createdAt: 0
+    createdAt: 50,
+    lastModifiedAt: 0
   },
   {
     id: '5',
-    name: 'fifth Category',
+    title: 'fifth Category',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
-      desktop: 'https://picsum.photos/500'
+      desktop: 'https1://picsum.photos/500'
     },
     status: {
       display: true
     },
-    createdAt: 0,
+    createdAt: 500,
+    lastModifiedAt: 0
   }
 ];
 

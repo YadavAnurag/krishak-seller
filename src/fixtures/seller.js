@@ -17,7 +17,6 @@ const sellers = [
       alternateContactNumber: '8465321456',
       addressType: 'Home'
       },
-    createdAt: 0,
     identity: {
       aadhaarNumber: '501599854152',
       panNumber: ''
@@ -27,7 +26,9 @@ const sellers = [
       ifsc: 'SBIN0002578',
       accountHolderName: 'Shivam Kushwaha',
       contactNumber: '8365820950'
-    }
+    },
+    createdAt: 0,
+    lastModifiedAt: 0
   },
   {
     id: '2',
@@ -47,7 +48,6 @@ const sellers = [
       alternateContactNumber: '8465321456',
       addressType: 'Home'
       },
-    createdAt: 0,
     identity: {
       aadhaarNumber: '501599854152',
       panNumber: ''
@@ -57,7 +57,9 @@ const sellers = [
       ifsc: 'SBIN0002578',
       accountHolderName: 'Shivam Kushwaha',
       contactNumber: '8365820950'
-    }
+    },
+    createdAt: 0,
+    lastModifiedAt: 0
   },
   {
     id: '3',
@@ -77,7 +79,6 @@ const sellers = [
       alternateContactNumber: '8465321456',
       addressType: 'Home'
       },
-    createdAt: 0,
     identity: {
       aadhaarNumber: '501599854152',
       panNumber: ''
@@ -87,8 +88,11 @@ const sellers = [
       ifsc: 'SBIN0002578',
       accountHolderName: 'Shivam Kushwaha',
       contactNumber: '8365820950'
-    }
+    },
+    createdAt: 0,
+    lastModifiedAt: 0
   }
 ];
 
 module.exports = sellers;
+
