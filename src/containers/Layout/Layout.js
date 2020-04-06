@@ -7,14 +7,14 @@ import Footer from '../../components/Navigation/Footer/Footer';
 
 const Layout = (props) => {
   return (
-    <React.Fragment>
+    <div className='app-layout'>
       <Toolbar />
-      <SideDrawer />
-      <main>
+      {/* <SideDrawer /> */}
+      <main className='main'>
         {props.children}
       </main>
-      <Footer />
-    </React.Fragment>
+      {/* <Footer /> */}
+    </div>
   );
 }
 

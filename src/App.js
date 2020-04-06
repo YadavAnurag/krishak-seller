@@ -1,5 +1,5 @@
 import React from "react";
-import './style/style.scss';
+import './styles/styles.scss';
 
 //import app from "./playground/app";
 import AppRouter from "./routers/AppRouter";

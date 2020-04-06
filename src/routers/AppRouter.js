@@ -1,19 +1,24 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Layout from '../containers/Layout/Layout';
 import FirstContainer from '../containers/FirstContainer/FirstContainer';
 import FirstComponent from '../components/FirstComponent/FirstComponent';
+import Toolbar from '../components/Navigation/Toolbar/Toolbar';
+import Footer from '../components/Navigation/Footer/Footer';
 
 const AppRouter = () => (
-  <Layout>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/' component={FirstContainer} />
-        <Route path='/' component={FirstComponent} />
-      </Switch>
-    </BrowserRouter>
-  </Layout>
+  <BrowserRouter>
+    <div className='page-container'>
+      <Toolbar />
+      <div className='content-wrap'>
+        <Switch>
+          <Route path='/' exact component={FirstContainer} />
+          <Route path='/second' exact component={FirstComponent} />
+        </Switch>
+      </div>
+      <Footer />
+    </div>
+  </BrowserRouter>
 );
 
 export default AppRouter;
