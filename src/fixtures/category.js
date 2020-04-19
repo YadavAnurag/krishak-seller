@@ -61,7 +61,7 @@ const categories = [
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
     image: {
       mobile: 'https://picsum.photos/300',
-      desktop: 'https1://picsum.photos/500'
+      desktop: 'https://picsum.photos/500'
     },
     status: {
       display: true
