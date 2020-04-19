@@ -6,12 +6,12 @@ import Spinner from '../UI/Spinner/Spinner';
 const FirstComponent = () => {
   return (
     <div>
+      {/* <Spinner />
       <Spinner />
       <Spinner />
       <Spinner />
       <Spinner />
-      <Spinner />
-      <Spinner />
+      <Spinner /> */}
 
     </div>
   );

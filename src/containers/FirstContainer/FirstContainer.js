@@ -15,7 +15,7 @@ class FirstContainer extends React.Component{
   render(){
     return (
       <div>
-        <p>FirstComponent</p>
+        <p>FirstContainer</p>
         <Button
           className='button button--small'
         >small</Button>
