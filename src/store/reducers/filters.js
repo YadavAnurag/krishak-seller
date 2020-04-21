@@ -4,22 +4,16 @@ import * as actionTypes from '../actions/actionTypes';
 // categoryFilterReducer
 const categoryFilterReducerDefaultState = {
   text: '',
-  startDate: 0,
-  endDate: 0,
-  sortByDate: 'dateDesc'
+  sortBy: 'titleAsc'
 };
 export const categoryFilterReducer = (state = categoryFilterReducerDefaultState, action)=>{
   switch(action.type){
     case actionTypes.SET_TEXT_FILTER:
       return {...state, text: action.text};
-    case actionTypes.SET_START_DATE:
-      return {...state, startDate: action.startDate};
-    case actionTypes.SET_END_DATE:
-      return {...state, endDate: action.endDate};
-    case actionTypes.SORT_BY_DATE_DESC:
-      return {...state, sortByDate: 'dateDesc'};
-    case actionTypes.SORT_BY_DATE_ASC:
-      return {...state, sortByDate: 'dateAsc'};
+    case actionTypes.SORT_BY_TITLE_DESC:
+      return {...state, sortBy: 'titleDesc'};
+    case actionTypes.SORT_BY_TITLE_ASC:
+      return {...state, sortBy: 'titleAsc'};
     default:
       return state;
   }
@@ -30,9 +24,7 @@ export const categoryFilterReducer = (state = categoryFilterReducerDefaultState,
 const subcategoryFilterReducerDefaultState = {
   categoryId: '',
   text: '',
-  startDate: 0,
-  endDate: 0,
-  sortByDate: 'dateDesc'
+  sortBy: 'titleAsc'
 };
 export const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, action)=>{
   switch(action.type){
@@ -40,14 +32,10 @@ export const subcategoryFilterReducer = (state = subcategoryFilterReducerDefault
       return {...state, categoryId: action.categoryId};
     case actionTypes.SET_TEXT_FILTER:
       return {...state, text: action.text};
-    case actionTypes.SET_START_DATE:
-      return {...state, startDate: action.startDate};
-    case actionTypes.SET_END_DATE:
-      return {...state, endDate: action.endDate};
-    case actionTypes.SORT_BY_DATE_DESC:
-      return {...state, sortByDate: 'dateDesc'};
-    case actionTypes.SORT_BY_DATE_ASC:
-      return {...state, sortByDate: 'dateAsc'};
+    case actionTypes.SORT_BY_TITLE_DESC:
+      return {...state, sortBy: 'titleDesc'};
+    case actionTypes.SORT_BY_TITLE_ASC:
+      return {...state, sortBy: 'titleAsc'};
     default:
       return state;
   }
@@ -59,9 +47,7 @@ const productFilterReducerDefaultState = {
   text: '',
   subcategoryId: '',
   sellerId: '',
-  startDate: 0,
-  endDate: 0,
-  sortByPrice: 'priceAsc',
+  sortBy: 'priceAsc',
   lowPrice: -Infinity,
   highPrice: Infinity,
   ratings: [],
@@ -75,20 +61,20 @@ export const productFilterReducer = (state = productFilterReducerDefaultState, a
       return {...state, subcategoryId: action.subcategoryId};
     case actionTypes.SET_SELLER_ID:
       return {...state, sellerId: action.sellerId};
-    case actionTypes.SET_START_DATE:
-      return {...state, startDate: action.startDate};
-    case actionTypes.SET_END_DATE:
-      return {...state, endDate: action.endDate};
-    case actionTypes.SORT_BY_PRICE_DESC:
-      return {...state, sortByPrice: 'priceDesc'};
-    case actionTypes.SORT_BY_PRICE_ASC:
-      return {...state, sortByPrice: 'priceAsc'};
     case actionTypes.SET_LOW_PRICE:
       return {...state, lowPrice: action.lowPrice};
     case actionTypes.SET_HIGH_PRICE:
       return {...state, highPrice: action.highPrice};
     case actionTypes.UNSET_PRICE:
       return {...state, lowPrice: -Infinity, highPrice: Infinity};
+    case actionTypes.SORT_BY_PRICE_DESC:
+      return {...state, sortBy: 'priceDesc'};
+    case actionTypes.SORT_BY_PRICE_ASC:
+      return {...state, sortBy: 'priceAsc'};
+    case actionTypes.SORT_BY_TITLE_DESC:
+      return {...state, sortBy: 'titleDesc'};
+    case actionTypes.SORT_BY_TITLE_ASC:
+      return {...state, sortBy: 'titleAsc'};
     case actionTypes.ADD_RATING_COUNT:
       const afterAddRatings = state.ratings.concat(action.rating);
       return {...state, ratings: afterAddRatings};
@@ -109,9 +95,7 @@ const userFilterReducerDefaultState = {
   contactNumber: '',
   pinCode: '',
   state: '',
-  startDate: 0,
-  endDate: 0,
-  sortByDate: 'dateDesc',
+  sortBy: 'titleAsc',
 };
 export const userFilterReducer = (state = userFilterReducerDefaultState, action)=>{
   switch(action.type){
@@ -127,14 +111,10 @@ export const userFilterReducer = (state = userFilterReducerDefaultState, action)
       return {...state, pinCode: action.pinCode};
     case actionTypes.SET_STATE_TEXT_FILTER:
       return {...state, state: action.state};
-    case actionTypes.SET_START_DATE:
-      return {...state, startDate: action.startDate};
-    case actionTypes.SET_END_DATE:
-      return {...state, endDate: action.endDate};
-    case actionTypes.SORT_BY_DATE_DESC:
-      return {...state, sortByDate: 'dateDesc'};
-    case actionTypes.SORT_BY_DATE_ASC:
-      return {...state, sortByDate: 'dateAsc'};
+    case actionTypes.SORT_BY_TITLE_DESC:
+      return {...state, sortBy: 'titleDesc'};
+    case actionTypes.SORT_BY_TITLE_ASC:
+      return {...state, sortBy: 'titleAsc'};
     default:
       return state;
   }

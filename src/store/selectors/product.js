@@ -1,27 +1,23 @@
-const getVisibleProducts = (products, productFilters) => {
+export const getSelectedProducts = (products, productFilters) => {
   const {
     text = '',
     subcategoryId = '',
     sellerId = '',
-    startDate = 0,
-    endDate = 0,
     lowPrice = -Infinity,
     highPrice = Infinity,
     ratings = [],
     tags = [],
-    sortByPrice = 'priceAsc',
+    sortBy = 'priceAsc',
   } = productFilters;
 
   return products.filter(product => {
     const textMatch = product.title.toLowerCase().includes(text.toLowerCase())
     const subcategoryIdMatch = product.subcategoryId.toLowerCase().includes(subcategoryId.toLowerCase());
     const sellerIdMatch = product.sellerId.toLowerCase().includes(sellerId.toLowerCase());
-    const startDateMatch = typeof startDate !== 'number' || product.createdAt >= startDate;
-    const endDateMatch = typeof endDate !== 'number' || product.createdAt <= endDate;
     const lowPriceMatch = typeof lowPrice !== 'number' || product.lowPrice >= lowPrice;
     const highPriceMatch = typeof highPrice !== 'number' || product.highPrice <= highPrice;
-    const ratingsMatch = true;
-    const tagsMatch = true;
+    let ratingsMatch = true;
+    let tagsMatch = true;
 
     if(ratings.length !== 0){
       ratingsMatch = ratings.some(rating => rating === product.rating.avgRating);
@@ -31,18 +27,24 @@ const getVisibleProducts = (products, productFilters) => {
     }
 
     return textMatch && subcategoryIdMatch &&
-      sellerIdMatch && startDateMatch &&
-      endDateMatch && lowPriceMatch &&
+      sellerIdMatch && lowPriceMatch &&
       highPriceMatch && ratingsMatch &&
       tagsMatch;
   }).sort((a,b) => {
-    if(sortByPrice === 'priceDesc'){
+    if(sortBy === 'priceDesc'){
       return a.price < b.price ? 1 : -1;
     }
-    if(sortByPrice === 'priceAsc'){
+    else if(sortBy === 'priceAsc'){
       return a.price > b.price ? 1 : -1;
     }
+
+    if(sortBy === 'titleAsc'){
+      return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
+    }
+    else if(sortBy === 'titleDesc'){
+      return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
+    }
+
+    return 0;
   });
 };
-
-export default getVisibleProducts;

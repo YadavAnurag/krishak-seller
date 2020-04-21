@@ -1,9 +1,20 @@
 import React from 'react';
 
-const SubcategoryList = () => {
+import SubcategoryItem from './SubcategoryItem';
+
+
+const SubcategoryList = (props) => {
   return (
     <div>
-      SubcategoryList
+      {
+        props.subcategories.length === 0 ? (
+          <p>No subcategories to show...</p>
+        ) : (
+          props.subcategories.map(subcategory => (
+            <SubcategoryItem subcategory={subcategory} />
+          ))
+        )
+      }
     </div>
   );
 };

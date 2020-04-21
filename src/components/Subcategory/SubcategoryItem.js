@@ -1,11 +1,23 @@
 import React from 'react';
 
-const SubcategoryListItem = () => {
+
+
+
+const SubcategoryItem = (props) => {
+
+  const {categoryId, title, description, image, status, createdAt, lastModifiedAt} = props.subcategory;
+
   return (
     <div>
-      SubcategoryListItem
+      CategoryId: {categoryId}
+      Title: {title}
+      description: {description}
+      <img alt={image.desktop}  />
+      display: {status.display}
+      createdAt: {createdAt}
+      lastModifiedAt: {lastModifiedAt}
     </div>
   );
 };
 
-export default SubcategoryListItem;
+export default SubcategoryItem;

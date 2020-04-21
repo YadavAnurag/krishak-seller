@@ -1,29 +1,22 @@
-const getVisibleSubcategories = (subcategories, subcategoryFilters) => {
+export const getSelectedSubcategories = (subcategories, subcategoryFilters) => {
   const {
     categoryId = '',
     text = '',
-    startDate = 0,
-    endDate = 0,
-    sortByDate = 'dateDesc'
+    sortBy = 'titleAsc'
   } = subcategoryFilters;
 
   return subcategories.filter(subcategory => {
-    // console.log('this one',subcategory);
     const categoryIdMatch = subcategory.categoryId.toLowerCase().includes(categoryId.toLowerCase());
-    const startDateMatch = typeof startDate !== 'number' || subcategory.createdAt >= startDate;
-    const endDateMatch = typeof endDate !== 'number' || subcategory.createdAt <= endDate;
     const textMatch = subcategory.title.toLowerCase().includes(text.toLowerCase());
-
-    console.log(categoryIdMatch, startDateMatch, endDateMatch, textMatch);
-    return categoryIdMatch && startDateMatch && endDateMatch && textMatch;
+    return categoryIdMatch && textMatch;
   }).sort((a,b) => {
-    if(sortByDate === 'dateDesc'){
-      return a.createdAt < b.createdAt ? 1 : -1;
+    if(sortBy === 'titleAsc'){
+      return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
     }
-    if(sortByDate === 'dateAsc'){
-      return a.createdAt > b.createdAt ? 1 : -1;
+    else if(sortBy === 'titleDesc'){
+      return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
     }
+
+    return 0;
   });
 };
-
-export default getVisibleSubcategories;

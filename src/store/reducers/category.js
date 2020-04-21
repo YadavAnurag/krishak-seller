@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
+import categories from '../../fixtures/category';
 
 
 const addCategory = (state, action) => {
@@ -39,7 +40,7 @@ const removeCategory = (state, action) => {
 
 // category reducer
 const categoryReducerDefaultState = {
-  categories: [],
+  categories: [...categories],
   loading: false,
   error: null
 };

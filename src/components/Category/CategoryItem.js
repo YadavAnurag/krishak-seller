@@ -2,7 +2,7 @@ import React from 'react';
 
 const CategoryListItem = (props) => {
 
-  const {id, title, description, image, status, createdAt, lastModifiedAt} = props.category;
+  const {title, description, image, status, createdAt, lastModifiedAt} = props.category;
 
   return (
     <div>

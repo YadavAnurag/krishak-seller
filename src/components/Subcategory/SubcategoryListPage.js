@@ -1,11 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const SubcategoryListPage = () => {
+import SubcategoryFilter from './SubcategoryFilter';
+import SubcategoryList from './SubcategoryList';
+import { getSelectedSubcategories } from '../../store/selectors/index';
+
+
+const SubcategoryListPage = (props) => {
   return (
     <div>
-      SubcategoryListPage
+      <SubcategoryFilter />
+      <SubcategoryList subcategories={props.subcategories} />
     </div>
   );
 };
 
-export default SubcategoryListPage;
+
+const mapStateToProps = (state) => ({
+  subcategories: getSelectedSubcategories(state.subcategory.subcategories, state.subcategoryFilters)
+});
+export default connect(mapStateToProps)(SubcategoryListPage);

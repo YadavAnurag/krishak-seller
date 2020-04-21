@@ -1,22 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CategoryFilter from './CategoryFilter';
 import CategoryList from './CategoryList';
-
-import categories from '../../fixtures/category';
-import { connect } from 'react-redux';
+import { getSelectedCategories } from '../../store/selectors/index';
 
 
-const CategoryListPage = () => {
+
+const CategoryListPage = (props) => {
   return (
     <div>
       <CategoryFilter />
-      <CategoryList categories={categories} />
+      <CategoryList categories={props.categories} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  categories: state.category.categories
+  categories: getSelectedCategories(state.category.categories, state.categoryFilters)
 });
 export default connect(mapStateToProps)(CategoryListPage);

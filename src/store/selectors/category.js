@@ -1,26 +1,20 @@
-const getVisibleCategories = (categories, categoryFilters) => {
+export const getSelectedCategories = (categories, categoryFilters) => {
   const {
     text = '',
-    startDate = 0,
-    endDate = 0,
-    sortByDate = 'dateDesc'
+    sortBy = 'titleAsc'
   } = categoryFilters;
 
   return categories.filter(category => {
-    const startDateMatch = typeof startDate !== 'number' || category.createdAt >= startDate;
-    const endDateMatch = typeof endDate !== 'number' || category.createdAt <= endDate;
     const textMatch = category.title.toLowerCase().includes(text.toLowerCase());
-
-    // console.log(startDateMatch, endDateMatch, textMatch);
-    return startDateMatch && endDateMatch && textMatch;
+    return textMatch;
   }).sort((a,b) => {
-    if(sortByDate === 'dateDesc'){
-      return a.createdAt < b.createdAt ? 1 : -1;
+    if(sortBy === 'titleAsc'){
+      return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
     }
-    if(sortByDate === 'dateAsc'){
-      return a.createdAt > b.createdAt ? 1 : -1;
+    else if(sortBy === 'titleDesc'){
+      return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
     }
+
+    return 0;
   });
 };
-
-export default getVisibleCategories;

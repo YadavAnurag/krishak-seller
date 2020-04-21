@@ -25,7 +25,7 @@ const logger = store => {
     return (action) => {
       console.log('[Middleware] Dispatching', action.type);
       const result = next(action);
-      console.log('[Middlerware] next state', store.getState());
+      // console.log('[Middlerware] next state', store.getState());
       return result;
     }
   }

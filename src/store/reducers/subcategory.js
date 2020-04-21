@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-
+import subcategories from '../../fixtures/subcategory';
 
 
 const addSubcategory = (state, action) => {
@@ -45,7 +45,7 @@ const removeSubcategory = (state, action) => {
 
 // subcategory reducer
 const subcategoryReducerDefaultState = {
-  subcategories: [],
+  subcategories: [...subcategories],
   loading: true,
   error: false
 };
