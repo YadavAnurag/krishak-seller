@@ -11,7 +11,7 @@ const SubcategoryList = (props) => {
           <p>No subcategories to show...</p>
         ) : (
           props.subcategories.map(subcategory => (
-            <SubcategoryItem subcategory={subcategory} />
+            <SubcategoryItem key={subcategory.id} subcategory={subcategory} />
           ))
         )
       }

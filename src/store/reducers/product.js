@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-
+import products from '../../fixtures/product';
 
 const addProduct = (state, action) => {
   return {...state, products: state.products.concat(action.product)};
@@ -95,7 +95,7 @@ const decreaseProductCount = (state, action) => {
 
 // productReducer
 const productReducerDefaultState = {
-  products: [],
+  products: [...products],
   loading: true,
   error: false
 };

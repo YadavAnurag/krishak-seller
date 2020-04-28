@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setTextFilter } from '../../store/actions/filter';
+import { setCategoryTextFilter, setSortByCategoryTitle } from '../../store/actions/filter';
 
 
 const CategoryFilter = (props) => {
 
   const onTextChange = (e) => {
-    props.setTextFilter(e.target.value);
+    props.setCategoryTextFilter(e.target.value);
+  }
+  const onSortByTitleChange = (e) => {
+    props.setSortByCategoryTitle(e.target.value);
   }
 
   return (
@@ -19,6 +22,11 @@ const CategoryFilter = (props) => {
         onChange={onTextChange}
         placeholder='search category name'
       />
+      <select name="sortByTitle" onChange={onSortByTitleChange}>
+        <option value="" >Select</option>
+        <option value="titleAsc" >Title Asc</option>
+        <option value="titleDesc">Title Desc</option>
+      </select>
     </div>
   );
 };
@@ -27,6 +35,7 @@ const mapStateToProps = (state) => ({
   filters: state.categoryFilters
 });
 const mapDispatchToProps = (dispatch) => ({
-  setTextFilter: (text) => dispatch(setTextFilter(text))
+  setCategoryTextFilter: (text) => dispatch(setCategoryTextFilter(text)),
+  setSortByCategoryTitle: (sortByTitle) => dispatch(setSortByCategoryTitle(sortByTitle))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryFilter);

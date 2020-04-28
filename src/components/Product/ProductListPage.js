@@ -1,11 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const ProductListPage = () => {
+import ProductFilter from './ProductFilter';
+import ProductList from './ProductList';
+import { getSelectedProducts } from '../../store/selectors/index';
+
+
+const ProductListPage = (props) => {
   return (
     <div>
-      ProductListPage
+      <ProductFilter />
+      <ProductList products={props.products} />
     </div>
   );
 };
 
-export default ProductListPage;
+
+const mapStateToProps = (state) => {
+  return {
+    products: getSelectedProducts(state.product.products, state.productFilters)
+  }
+};
+export default connect(mapStateToProps)(ProductListPage);

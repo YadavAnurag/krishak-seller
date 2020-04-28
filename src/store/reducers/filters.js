@@ -4,16 +4,14 @@ import * as actionTypes from '../actions/actionTypes';
 // categoryFilterReducer
 const categoryFilterReducerDefaultState = {
   text: '',
-  sortBy: 'titleAsc'
+  sortByTitle: 'titleAsc'
 };
 export const categoryFilterReducer = (state = categoryFilterReducerDefaultState, action)=>{
   switch(action.type){
-    case actionTypes.SET_TEXT_FILTER:
+    case actionTypes.SET_CATEGORY_TEXT_FILTER:
       return {...state, text: action.text};
-    case actionTypes.SORT_BY_TITLE_DESC:
-      return {...state, sortBy: 'titleDesc'};
-    case actionTypes.SORT_BY_TITLE_ASC:
-      return {...state, sortBy: 'titleAsc'};
+    case actionTypes.SET_SORT_BY_CATEGORY_TITLE:
+      return {...state, sortByTitle: action.sortByTitle};
     default:
       return state;
   }
@@ -24,18 +22,16 @@ export const categoryFilterReducer = (state = categoryFilterReducerDefaultState,
 const subcategoryFilterReducerDefaultState = {
   categoryId: '',
   text: '',
-  sortBy: 'titleAsc'
+  sortByTitle: 'titleAsc'
 };
 export const subcategoryFilterReducer = (state = subcategoryFilterReducerDefaultState, action)=>{
   switch(action.type){
     case actionTypes.SET_CATEGORY_ID:
       return {...state, categoryId: action.categoryId};
-    case actionTypes.SET_TEXT_FILTER:
+    case actionTypes.SET_SUBCATEGORY_TEXT_FILTER:
       return {...state, text: action.text};
-    case actionTypes.SORT_BY_TITLE_DESC:
-      return {...state, sortBy: 'titleDesc'};
-    case actionTypes.SORT_BY_TITLE_ASC:
-      return {...state, sortBy: 'titleAsc'};
+    case actionTypes.SET_SORT_BY_SUBCATEGORY_TITLE:
+      return {...state, sortByTitle: action.sortByTitle};
     default:
       return state;
   }
@@ -47,15 +43,16 @@ const productFilterReducerDefaultState = {
   text: '',
   subcategoryId: '',
   sellerId: '',
-  sortBy: 'priceAsc',
-  lowPrice: -Infinity,
+  sortByTitle: '',
+  sortByPrice: 'priceAsc',
+  lowPrice: 0,
   highPrice: Infinity,
   ratings: [],
   tags: []
 };
 export const productFilterReducer = (state = productFilterReducerDefaultState, action)=>{
   switch(action.type){
-    case actionTypes.SET_TEXT_FILTER:
+    case actionTypes.SET_PRODUCT_TEXT_FILTER:
       return {...state, text: action.text};
     case actionTypes.SET_SUBCATEGORY_ID:
       return {...state, subcategoryId: action.subcategoryId};
@@ -66,21 +63,21 @@ export const productFilterReducer = (state = productFilterReducerDefaultState, a
     case actionTypes.SET_HIGH_PRICE:
       return {...state, highPrice: action.highPrice};
     case actionTypes.UNSET_PRICE:
-      return {...state, lowPrice: -Infinity, highPrice: Infinity};
-    case actionTypes.SORT_BY_PRICE_DESC:
-      return {...state, sortBy: 'priceDesc'};
-    case actionTypes.SORT_BY_PRICE_ASC:
-      return {...state, sortBy: 'priceAsc'};
-    case actionTypes.SORT_BY_TITLE_DESC:
-      return {...state, sortBy: 'titleDesc'};
-    case actionTypes.SORT_BY_TITLE_ASC:
-      return {...state, sortBy: 'titleAsc'};
+      return {...state, lowPrice: 0, highPrice: Infinity};
+    case actionTypes.SET_SORT_BY_PRODUCT_TITLE:
+      return {...state, sortByTitle: action.sortByTitle, sortByPrice: ""};
+    case actionTypes.SET_SORT_BY_PRODUCT_PRICE:
+      return {...state, sortByPrice: action.sortByPrice, sortByTitle: ""};
+
     case actionTypes.ADD_RATING_COUNT:
       const afterAddRatings = state.ratings.concat(action.rating);
       return {...state, ratings: afterAddRatings};
     case actionTypes.REMOVE_RATING_COUNT:
       const afterRemoveRatings = state.ratings.filter(rating => rating !== action.rating);
       return {...state, ratings: afterRemoveRatings};
+    case actionTypes.UNSET_RATING:
+      return {...state, ratings: []};
+
     default:
       return state;
   }
@@ -95,11 +92,11 @@ const userFilterReducerDefaultState = {
   contactNumber: '',
   pinCode: '',
   state: '',
-  sortBy: 'titleAsc',
+  sortByTitle: 'titleAsc',
 };
 export const userFilterReducer = (state = userFilterReducerDefaultState, action)=>{
   switch(action.type){
-    case actionTypes.SET_NAME_TEXT_FILTER:
+    case actionTypes.SET_USER_TEXT_FILTER:
       return {...state, name: action.name};
     case actionTypes.SET_GENDER_FILTER:
       return {...state, gender: action.gender};
@@ -111,10 +108,8 @@ export const userFilterReducer = (state = userFilterReducerDefaultState, action)
       return {...state, pinCode: action.pinCode};
     case actionTypes.SET_STATE_TEXT_FILTER:
       return {...state, state: action.state};
-    case actionTypes.SORT_BY_TITLE_DESC:
-      return {...state, sortBy: 'titleDesc'};
-    case actionTypes.SORT_BY_TITLE_ASC:
-      return {...state, sortBy: 'titleAsc'};
+    case actionTypes.SET_SORT_BY_USER_TITLE:
+      return {...state, sortByTitle: action.sortByTitle};
     default:
       return state;
   }
